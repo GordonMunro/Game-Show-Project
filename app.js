@@ -50,5 +50,14 @@ addPhraseToDisplay(randomPhrase);
 
 // check if a letter is in the phrase
 const checkLetter = button => {
-
+    const isLetter = document.getElementsByClassName('letter');
+    let match;
+    for (let i = 0; i < isLetter.length; i++) {
+        const letter = isLetter[i];
+        if (button === letter) {
+            letter.className = show;
+            match = button.textContent;
+        } 
+        return match;
+    }
 }
