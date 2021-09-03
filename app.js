@@ -83,7 +83,6 @@ qwerty.addEventListener('click', (e) => {
         let letterFound = checkLetter(button);
         if (letterFound === null) {
             missed++;
-
         }
     }
 });
