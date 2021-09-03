@@ -28,7 +28,7 @@ const getRandomPhraseAsArray = array => {
     const randomNumber = Math.floor(Math.random() * array.length);
     const phraseSplit = array[randomNumber].split('');
     return phraseSplit;
-}
+};
 const randomPhrase = getRandomPhraseAsArray(phrases);
 
 // add phrase to display
@@ -45,33 +45,45 @@ const addPhraseToDisplay = array => {
         }
         ul.appendChild(li);
     }
-}
+};
 addPhraseToDisplay(randomPhrase);
 
 // check if a letter is in the phrase
+// const checkLetter = button => {
+//     const isLetter = document.querySelectorAll('.letter');
+//     let match = null;
+//     for (let i = 0; i < isLetter.length; i++) {
+//         if (button.textContent === isLetter[i].textContent) {
+//             isLetter[i].className += ' show';
+//             match = button;
+//         }         
+//     }
+//     return match;
+// };
 const checkLetter = button => {
-    const isLetter = document.getElementsByClassName('letter');
-    let match;
+    const isLetter = document.querySelectorAll('.letter');
+    let match = null;
     for (let i = 0; i < isLetter.length; i++) {
-        const letter = isLetter[i];
-        const ltr = letter.textContent;
-        const btn = button.textContent;
+             let letter = isLetter[i];
+             let ltr = letter.textContent;
+             let btn = button.textContent;
         if (btn === ltr) {
-            letter.className = 'letter show';
+            letter.className += ' show';
             match = btn;
-        } 
-        return match;
+        }         
     }
-}
+    return match;
+};
+
 
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         const button = e.target;
         button.className = 'chosen';
         let letterFound = checkLetter(button);
-        if (!letterFound) {
+        if (letterFound === null) {
             missed++;
+
         }
-        return letterFound;
     }
-})
+});
