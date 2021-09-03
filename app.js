@@ -19,22 +19,36 @@ const phrases = [
 btnReset.addEventListener('click', () => {
     const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
-})
+});
 
 // Functions
 
 // get random phrase
 const getRandomPhraseAsArray = array => {
     const randomNumber = Math.floor(Math.random() * array.length);
-    return array[randomNumber];
+    const phraseSplit = array[randomNumber].split('');
+    return phraseSplit;
 }
 const randomPhrase = getRandomPhraseAsArray(phrases);
+
 // add phrase to display
 const addPhraseToDisplay = array => {
+    const ul = document.querySelector('#phrase ul');
     for (let i = 0; i < array.length; i++) {
         const letter = array[i];
         const li = document.createElement('li');
-        
-        
+        li.textContent = letter;
+        if (letter === ' ') {
+            li.className = 'space';
+        } else {
+            li.className = 'letter';
+        }
+        ul.appendChild(li);
     }
+}
+addPhraseToDisplay(randomPhrase);
+
+// check if a letter is in the phrase
+const checkLetter = button => {
+
 }
