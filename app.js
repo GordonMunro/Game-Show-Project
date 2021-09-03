@@ -54,10 +54,24 @@ const checkLetter = button => {
     let match;
     for (let i = 0; i < isLetter.length; i++) {
         const letter = isLetter[i];
-        if (button === letter) {
-            letter.className = show;
-            match = button.textContent;
+        const ltr = letter.textContent;
+        const btn = button.textContent;
+        if (btn === ltr) {
+            letter.className = 'letter show';
+            match = btn;
         } 
         return match;
     }
 }
+
+qwerty.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+        const button = e.target;
+        button.className = 'chosen';
+        let letterFound = checkLetter(button);
+        if (!letterFound) {
+            missed++;
+        }
+        return letterFound;
+    }
+})
