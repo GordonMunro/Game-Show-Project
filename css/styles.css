@@ -56,9 +56,10 @@ button {
   -o-transition: var(--transition);
   transition: var(--transition);
   cursor: pointer;
+  transition: background-color .3s ease-in;
 }
 button:hover {
-  transform: scale(1.3);
+  background-color: lightskyblue;
 }
 .main-container {
   display: flex;
