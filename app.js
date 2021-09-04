@@ -62,7 +62,7 @@ const checkLetter = button => {
     return match;
 };
 
-// check if the game has been one or lost
+// check if the game has been won or lost
 const reset = (result, message) => {
     overlay.className = result;
     const h2 = overlay.firstElementChild;
