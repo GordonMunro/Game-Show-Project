@@ -1,9 +1,9 @@
 // VARIABLES
 const qwerty = document.getElementById('qwerty');
-const phrase = document.getElementById('phrase');
 const btnReset = document.querySelector('.btn__reset');
 const overlay = document.getElementById('overlay');
 const letter = document.getElementsByClassName('letter');
+const heart = document.querySelectorAll('.tries img');
 let missed = 0;
 
 // ARRAYS
@@ -63,6 +63,16 @@ const checkLetter = button => {
 };
 
 // check if the game has been won or lost
+const checkWin = () => {
+    const show = document.getElementsByClassName('show');
+    if (letter.length === show.length) {
+        reset('win', 'You Won!');
+
+    }  else if (missed >= 5) {
+        reset('lose', 'You Lost.');
+    }
+}
+
 const reset = (result, message) => {
     overlay.className = result;
     const h2 = overlay.firstElementChild;
@@ -79,7 +89,6 @@ const reset = (result, message) => {
         for (let i = 0; i < list.length; i++) {
             list[i].remove();  
         }
-        const heart = document.querySelectorAll('.tries img');
         for (let i = 0; i < heart.length; i++) {
             heart[i].src = 'images/liveHeart.png';  
         }
@@ -89,15 +98,6 @@ const reset = (result, message) => {
   });
 }
 
-const checkWin = () => {
-    const show = document.getElementsByClassName('show');
-    if (letter.length === show.length) {
-        reset('win', 'You Won!');
-
-    }  else if (missed >= 5) {
-        reset('lose', 'You Lost.');
-    }
-}
 // EVENT LISTENERS
 
 // listen for the start game button to be pressed
@@ -112,7 +112,6 @@ qwerty.addEventListener('click', (e) => {
         button.disabled = true;
         let letterFound = checkLetter(button);
         if (!letterFound) {
-            const heart = document.querySelectorAll('.tries img');
             heart[missed].src = 'images/lostHeart.png';
             missed++;
         }
