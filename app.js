@@ -10,7 +10,12 @@ const phrases = [
     'Body and Soul',
     'All of Me',
     'Autumn Leaves',
-    'Night and Day'
+    'Night and Day',
+    'Mood Indigo',
+    'Misty',
+    'Round Midnight',
+    'Rose Room',
+    'Tea for Two'
 ];
 
 // Event Listener
@@ -96,9 +101,12 @@ const checkWin = () => {
             }
             const list = document.querySelectorAll('#phrase li');
             for (let i = 0; i < list.length; i++) {
-                list[i].style.display = 'none';
-                
+                list[i].style.display = 'none';  
             }
+            const heart = document.querySelectorAll('.tries img');
+            for (let i = 0; i < heart.length; i++) {
+                heart[i].src = 'images/liveHeart.png';  
+            }   
         addPhraseToDisplay(randomPhrase);
         missed = 0;
         });
@@ -116,8 +124,11 @@ const checkWin = () => {
             }
             const list = document.querySelectorAll('#phrase li');
             for (let i = 0; i < list.length; i++) {
-                list[i].style.display = 'none';
-                
+                list[i].style.display = 'none';  
+            }
+            const heart = document.querySelectorAll('.tries img');
+            for (let i = 0; i < heart.length; i++) {
+                heart[i].src = 'images/liveHeart.png';  
             }
         addPhraseToDisplay(randomPhrase);
         missed = 0;
