@@ -2,6 +2,8 @@
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const btnReset = document.querySelector('.btn__reset');
+const overlay = document.getElementById('overlay');
+const letter = document.getElementsByClassName('letter');
 let missed = 0;
 
 // ARRAYS
@@ -47,14 +49,13 @@ addPhraseToDisplay(randomPhrase);
 
 // check if a letter is in the phrase
 const checkLetter = button => {
-    const isLetter = document.querySelectorAll('.letter');
     let match = null;
-    for (let i = 0; i < isLetter.length; i++) {
-             let letter = isLetter[i];
-             let ltr = letter.textContent;
+    for (let i = 0; i < letter.length; i++) {
+             let isLetter = letter[i];
+             let ltr = isLetter.textContent;
              let btn = button.textContent;
         if (btn === ltr.toLowerCase()) {
-            letter.className += ' show';
+            isLetter.className += ' show';
             match = btn;
         }         
     }
@@ -63,11 +64,10 @@ const checkLetter = button => {
 
 // check if the game has been one or lost
 const reset = (result, message) => {
-    const win = document.getElementById('overlay');
-    win.className = result;
-    const h2 = win.firstElementChild;
+    overlay.className = result;
+    const h2 = overlay.firstElementChild;
     h2.textContent = message;
-    win.style.display = 'flex';
+    overlay.style.display = 'flex';
     btnReset.textContent = 'Restart Game';
     btnReset.addEventListener('click', () => {
         const button = document.querySelectorAll('.keyrow button');
@@ -90,7 +90,6 @@ const reset = (result, message) => {
 }
 
 const checkWin = () => {
-    const letter = document.getElementsByClassName('letter');
     const show = document.getElementsByClassName('show');
     if (letter.length === show.length) {
         reset('win', 'You Won!');
@@ -103,7 +102,6 @@ const checkWin = () => {
 
 // listen for the start game button to be pressed
 btnReset.addEventListener('click', () => {
-    const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
 });
 // listen for the onscreen keyboard to be clicked
