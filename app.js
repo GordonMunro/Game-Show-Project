@@ -6,12 +6,11 @@ let missed = 0;
 
 // Arrays
 const phrases = [
-    'blue in green',
-    'honeysuckle rose',
-    'on green dolphin street',
-    'how high the moon',
-    'take the a train'
-
+    'Blue in Green',
+    'Body and Soul',
+    'All of Me',
+    'Autumn Leaves',
+    'Night and Day'
 ];
 
 // Event Listener
@@ -56,7 +55,7 @@ const checkLetter = button => {
              let letter = isLetter[i];
              let ltr = letter.textContent;
              let btn = button.textContent;
-        if (btn === ltr) {
+        if (btn === ltr.toLowerCase()) {
             letter.className += ' show';
             match = btn;
         }         
@@ -90,13 +89,38 @@ const checkWin = () => {
         h2.textContent = 'You Won!';
         win.style.display = 'flex';
         btnReset.textContent = 'Restart Game';
+        btnReset.addEventListener('click', () => {
+            const button = document.querySelectorAll('.keyrow button');
+            for (let i = 0; i < button.length; i++) {
+                button[i].className = '';    
+            }
+            const list = document.querySelectorAll('#phrase li');
+            for (let i = 0; i < list.length; i++) {
+                list[i].style.display = 'none';
+                
+            }
+        addPhraseToDisplay(randomPhrase);
         missed = 0;
+        });
+
     }  else if (missed >= 5) {
         win.className = 'lose';
         const h2 = win.firstElementChild;
         h2.textContent = 'You Lost.';
         win.style.display = 'flex';
         btnReset.textContent = 'Restart Game';
+        btnReset.addEventListener('click', () => {
+            const button = document.querySelectorAll('.keyrow button');
+            for (let i = 0; i < button.length; i++) {
+                button[i].className = '';    
+            }
+            const list = document.querySelectorAll('#phrase li');
+            for (let i = 0; i < list.length; i++) {
+                list[i].style.display = 'none';
+                
+            }
+        addPhraseToDisplay(randomPhrase);
         missed = 0;
+        });
     }
 }
