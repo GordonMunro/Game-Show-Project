@@ -15,7 +15,7 @@ const phrases = [
 ];
 
 // Event Listener
-
+// listen for the start game button to be pressed
 btnReset.addEventListener('click', () => {
     const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
@@ -49,17 +49,6 @@ const addPhraseToDisplay = array => {
 addPhraseToDisplay(randomPhrase);
 
 // check if a letter is in the phrase
-// const checkLetter = button => {
-//     const isLetter = document.querySelectorAll('.letter');
-//     let match = null;
-//     for (let i = 0; i < isLetter.length; i++) {
-//         if (button.textContent === isLetter[i].textContent) {
-//             isLetter[i].className += ' show';
-//             match = button;
-//         }         
-//     }
-//     return match;
-// };
 const checkLetter = button => {
     const isLetter = document.querySelectorAll('.letter');
     let match = null;
@@ -75,14 +64,39 @@ const checkLetter = button => {
     return match;
 };
 
-
+// listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         const button = e.target;
         button.className = 'chosen';
         let letterFound = checkLetter(button);
-        if (letterFound === null) {
+        if (!letterFound) {
+            const heart = document.querySelectorAll('.tries img');
+            heart[missed].src = 'images/lostHeart.png';
             missed++;
         }
     }
+    checkWin();
 });
+
+// check if the game has been one or lost
+const checkWin = () => {
+    const letter = document.getElementsByClassName('letter');
+    const show = document.getElementsByClassName('show');
+    const win = document.getElementById('overlay');
+    if (letter.length === show.length) {
+        win.className = 'win';
+        const h2 = win.firstElementChild;
+        h2.textContent = 'You Won!';
+        win.style.display = 'flex';
+        btnReset.textContent = 'Restart Game';
+        missed = 0;
+    }  else if (missed >= 5) {
+        win.className = 'lose';
+        const h2 = win.firstElementChild;
+        h2.textContent = 'You Lost.';
+        win.style.display = 'flex';
+        btnReset.textContent = 'Restart Game';
+        missed = 0;
+    }
+}
