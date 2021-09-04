@@ -73,6 +73,7 @@ qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         const button = e.target;
         button.className = 'chosen';
+        button.disabled = 'true';
         let letterFound = checkLetter(button);
         if (!letterFound) {
             const heart = document.querySelectorAll('.tries img');
@@ -101,12 +102,13 @@ const checkWin = () => {
             }
             const list = document.querySelectorAll('#phrase li');
             for (let i = 0; i < list.length; i++) {
-                list[i].style.display = 'none';  
+                list[i].remove();  
             }
             const heart = document.querySelectorAll('.tries img');
             for (let i = 0; i < heart.length; i++) {
                 heart[i].src = 'images/liveHeart.png';  
-            }   
+            }
+        const randomPhrase = getRandomPhraseAsArray(phrases);  
         addPhraseToDisplay(randomPhrase);
         missed = 0;
         });
@@ -124,12 +126,13 @@ const checkWin = () => {
             }
             const list = document.querySelectorAll('#phrase li');
             for (let i = 0; i < list.length; i++) {
-                list[i].style.display = 'none';  
+                list[i].remove();  
             }
             const heart = document.querySelectorAll('.tries img');
             for (let i = 0; i < heart.length; i++) {
                 heart[i].src = 'images/liveHeart.png';  
             }
+        const randomPhrase = getRandomPhraseAsArray(phrases); 
         addPhraseToDisplay(randomPhrase);
         missed = 0;
         });
