@@ -4,28 +4,21 @@ const phrase = document.getElementById('phrase');
 const btnReset = document.querySelector('.btn__reset');
 let missed = 0;
 
-// Arrays
+// ARRAYS
 const phrases = [
     'Blue in Green',
     'Body and Soul',
     'All of Me',
-    'Autumn Leaves',
+    'Caravan',
     'Night and Day',
     'Mood Indigo',
     'Misty',
-    'Round Midnight',
+    'Milestones',
     'Rose Room',
     'Tea for Two'
 ];
 
-// Event Listener
-// listen for the start game button to be pressed
-btnReset.addEventListener('click', () => {
-    const overlay = document.getElementById('overlay');
-    overlay.style.display = 'none';
-});
-
-// Functions
+// FUNCTIONS
 
 // get random phrase
 const getRandomPhraseAsArray = array => {
@@ -68,12 +61,57 @@ const checkLetter = button => {
     return match;
 };
 
+// check if the game has been one or lost
+const reset = (result, message) => {
+    const win = document.getElementById('overlay');
+    win.className = result;
+    const h2 = win.firstElementChild;
+    h2.textContent = message;
+    win.style.display = 'flex';
+    btnReset.textContent = 'Restart Game';
+    btnReset.addEventListener('click', () => {
+        const button = document.querySelectorAll('.keyrow button');
+        for (let i = 0; i < button.length; i++) {
+            button[i].className = '';
+            button[i].disabled = false;    
+        }
+        const list = document.querySelectorAll('#phrase li');
+        for (let i = 0; i < list.length; i++) {
+            list[i].remove();  
+        }
+        const heart = document.querySelectorAll('.tries img');
+        for (let i = 0; i < heart.length; i++) {
+            heart[i].src = 'images/liveHeart.png';  
+        }
+    const randomPhrase = getRandomPhraseAsArray(phrases);  
+    addPhraseToDisplay(randomPhrase);
+    missed = 0;
+  });
+}
+
+const checkWin = () => {
+    const letter = document.getElementsByClassName('letter');
+    const show = document.getElementsByClassName('show');
+    if (letter.length === show.length) {
+        reset('win', 'You Won!');
+
+    }  else if (missed >= 5) {
+        reset('lose', 'You Lost.');
+    }
+}
+// EVENT LISTENERS
+
+// listen for the start game button to be pressed
+btnReset.addEventListener('click', () => {
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = 'none';
+});
 // listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         const button = e.target;
         button.className = 'chosen';
-        button.disabled = 'true';
+        button.disabled = true;
         let letterFound = checkLetter(button);
         if (!letterFound) {
             const heart = document.querySelectorAll('.tries img');
@@ -83,58 +121,3 @@ qwerty.addEventListener('click', (e) => {
     }
     checkWin();
 });
-
-// check if the game has been one or lost
-const checkWin = () => {
-    const letter = document.getElementsByClassName('letter');
-    const show = document.getElementsByClassName('show');
-    const win = document.getElementById('overlay');
-    if (letter.length === show.length) {
-        win.className = 'win';
-        const h2 = win.firstElementChild;
-        h2.textContent = 'You Won!';
-        win.style.display = 'flex';
-        btnReset.textContent = 'Restart Game';
-        btnReset.addEventListener('click', () => {
-            const button = document.querySelectorAll('.keyrow button');
-            for (let i = 0; i < button.length; i++) {
-                button[i].className = '';    
-            }
-            const list = document.querySelectorAll('#phrase li');
-            for (let i = 0; i < list.length; i++) {
-                list[i].remove();  
-            }
-            const heart = document.querySelectorAll('.tries img');
-            for (let i = 0; i < heart.length; i++) {
-                heart[i].src = 'images/liveHeart.png';  
-            }
-        const randomPhrase = getRandomPhraseAsArray(phrases);  
-        addPhraseToDisplay(randomPhrase);
-        missed = 0;
-        });
-
-    }  else if (missed >= 5) {
-        win.className = 'lose';
-        const h2 = win.firstElementChild;
-        h2.textContent = 'You Lost.';
-        win.style.display = 'flex';
-        btnReset.textContent = 'Restart Game';
-        btnReset.addEventListener('click', () => {
-            const button = document.querySelectorAll('.keyrow button');
-            for (let i = 0; i < button.length; i++) {
-                button[i].className = '';    
-            }
-            const list = document.querySelectorAll('#phrase li');
-            for (let i = 0; i < list.length; i++) {
-                list[i].remove();  
-            }
-            const heart = document.querySelectorAll('.tries img');
-            for (let i = 0; i < heart.length; i++) {
-                heart[i].src = 'images/liveHeart.png';  
-            }
-        const randomPhrase = getRandomPhraseAsArray(phrases); 
-        addPhraseToDisplay(randomPhrase);
-        missed = 0;
-        });
-    }
-}
